@@ -118,18 +118,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
         
         question.addEventListener('click', () => {
             const isOpen = item.classList.contains('active');
             
-            // Close all items
+            // Fecha todas as respostas
             faqItems.forEach(faqItem => {
                 faqItem.classList.remove('active');
+                const otherAnswer = faqItem.querySelector('.faq-answer');
+                otherAnswer.style.maxHeight = null;
             });
             
-            // Open clicked item if it wasn't open
+            // Abre a resposta clicada se não estava aberta
             if (!isOpen) {
                 item.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + "px";
             }
         });
     });
@@ -234,6 +238,242 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (e.key === 'ArrowRight') {
             nextBtn.click();
         }
+    });
+
+    // Animação do raio flutuante
+    const lightning = document.createElement('div');
+    lightning.className = 'floating-lightning';
+    
+    // Usa a nova imagem do logo
+    const img = document.createElement('img');
+    // Tenta diferentes caminhos possíveis para a imagem
+    const possiblePaths = [
+        './assets/images/LogoTransp.png',
+        './assets/LogoTransp.png',
+        '/assets/images/LogoTransp.png',
+        '/assets/LogoTransp.png',
+        'LogoTransp.png'
+    ];
+
+    // Função para verificar se a imagem existe
+    const checkImage = (path) => {
+        return new Promise((resolve) => {
+            const tempImg = new Image();
+            tempImg.onload = () => resolve(true);
+            tempImg.onerror = () => resolve(false);
+            tempImg.src = path;
+        });
+    };
+
+    // Tenta carregar a imagem de diferentes caminhos
+    Promise.all(possiblePaths.map(path => checkImage(path)))
+        .then(results => {
+            const validPath = possiblePaths[results.findIndex(result => result)];
+            if (validPath) {
+                img.src = validPath;
+            } else {
+                console.log('Não foi possível encontrar a imagem do raio');
+            }
+        });
+
+    img.alt = 'Logo Raio';
+    lightning.appendChild(img);
+    lightning.style.cursor = 'grab';
+    lightning.classList.remove('active'); // Começa invisível
+
+    document.body.appendChild(lightning);
+
+    // Variáveis para controle de arrasto
+    let isDragging = false;
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+    let xOffset = 0;
+    let yOffset = 0;
+    let isInPlanosSection = false;
+
+    // Função para iniciar o arrasto
+    const dragStart = (e) => {
+        if (e.type === "touchstart") {
+            initialX = e.touches[0].clientX - xOffset;
+            initialY = e.touches[0].clientY - yOffset;
+        } else {
+            initialX = e.clientX - xOffset;
+            initialY = e.clientY - yOffset;
+        }
+
+        if (e.target === lightning || lightning.contains(e.target)) {
+            isDragging = true;
+            lightning.style.cursor = 'grabbing';
+        }
+    };
+
+    // Função para arrastar
+    const drag = (e) => {
+        if (isDragging) {
+            e.preventDefault();
+
+            if (e.type === "touchmove") {
+                currentX = e.touches[0].clientX - initialX;
+                currentY = e.touches[0].clientY - initialY;
+            } else {
+                currentX = e.clientX - initialX;
+                currentY = e.clientY - initialY;
+            }
+
+            xOffset = currentX;
+            yOffset = currentY;
+
+            setTranslate(currentX, currentY, lightning);
+        }
+    };
+
+    // Função para finalizar o arrasto
+    const dragEnd = () => {
+        if (isDragging) {
+            isDragging = false;
+            lightning.style.cursor = 'grab';
+        }
+    };
+
+    // Função para definir a posição do elemento
+    const setTranslate = (xPos, yPos, el) => {
+        el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+    };
+
+    // Adiciona os eventos de arrasto
+    lightning.addEventListener('touchstart', dragStart, false);
+    lightning.addEventListener('mousedown', dragStart, false);
+    document.addEventListener('touchmove', drag, false);
+    document.addEventListener('mousemove', drag, false);
+    document.addEventListener('touchend', dragEnd, false);
+    document.addEventListener('mouseup', dragEnd, false);
+
+    // Adiciona evento de clique para flash
+    lightning.addEventListener('click', (e) => {
+        if (!isDragging) {
+            // Toca o som do trovão
+            thunderSound.play().catch(error => {
+                console.log('Erro ao tocar som:', error);
+            });
+
+            // Adiciona efeito de flash na tela inteira com flash mais intenso
+            const flashOverlay = document.createElement('div');
+            flashOverlay.style.position = 'fixed';
+            flashOverlay.style.top = '0';
+            flashOverlay.style.left = '0';
+            flashOverlay.style.width = '100%';
+            flashOverlay.style.height = '100%';
+            flashOverlay.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            flashOverlay.style.zIndex = '9998';
+            flashOverlay.style.pointerEvents = 'none';
+            flashOverlay.style.transition = 'opacity 0.15s ease-out';
+            document.body.appendChild(flashOverlay);
+
+            // Adiciona múltiplos flashes rápidos
+            lightning.classList.add('flash');
+            lightning.style.filter = 'brightness(1.5) contrast(1.2)';
+
+            // Sequência de flashes
+            setTimeout(() => {
+                flashOverlay.style.opacity = '0';
+                lightning.style.filter = 'brightness(2) contrast(1.5)';
+            }, 50);
+
+            setTimeout(() => {
+                flashOverlay.style.opacity = '0.9';
+                lightning.style.filter = 'brightness(1.8) contrast(1.3)';
+            }, 100);
+
+            setTimeout(() => {
+                flashOverlay.style.opacity = '0';
+                lightning.style.filter = '';
+            }, 150);
+
+            // Remove o flash após a animação
+            setTimeout(() => {
+                flashOverlay.remove();
+                lightning.classList.remove('flash');
+            }, 300);
+        }
+    });
+
+    let lastScrollTop = 0;
+    let isAnimating = false;
+    let timeoutId = null;
+    const thunderSound = new Audio('./assets/thunder.mp3');
+    thunderSound.volume = 0.3;
+
+    // Função para calcular a posição final do raio
+    const calculateFinalPosition = (planosSection) => {
+        const planosSectionRect = planosSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        return planosSectionRect.top + (planosSectionRect.height * 0.2); // 20% da altura da seção
+    };
+
+    // Função para remover a animação
+    const removeLightningAnimation = () => {
+        // Primeiro remove apenas o flash
+        lightning.classList.remove('flash');
+        
+        // Inicia a animação de subida imediatamente
+        lightning.style.animation = 'lightningRiseUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+        
+        // Remove a classe active quando a animação de subida terminar
+        setTimeout(() => {
+            lightning.classList.remove('active');
+            isAnimating = false;
+            lightning.style.animation = '';
+        }, 1000);
+    };
+
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const planosSection = document.getElementById('planos');
+        
+        if (!planosSection) return;
+        
+        const planosSectionTop = planosSection.offsetTop;
+        const planosSectionBottom = planosSectionTop + planosSection.offsetHeight;
+        const viewportMiddle = scrollTop + (window.innerHeight / 2);
+        
+        // Verifica se está dentro da seção de planos
+        if (viewportMiddle >= planosSectionTop && 
+            viewportMiddle <= planosSectionBottom) {
+            
+            if (!isInPlanosSection) {
+                isInPlanosSection = true;
+                lightning.classList.add('active');
+                
+                // Toca o som do trovão (com tratamento de erro)
+                thunderSound.play().catch(error => {
+                    console.log('Erro ao tocar som:', error);
+                });
+
+                // Adiciona o efeito de flash após um pequeno delay
+                setTimeout(() => {
+                    lightning.classList.add('flash');
+                }, 1000);
+            }
+        } else {
+            // Se saiu da seção de planos, remove a animação e esconde o raio
+            if (isInPlanosSection) {
+                isInPlanosSection = false;
+                lightning.classList.remove('flash');
+                
+                // Inicia a animação de subida
+                lightning.style.animation = 'lightningRiseUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+                
+                // Remove a classe active após a animação terminar
+                setTimeout(() => {
+                    lightning.classList.remove('active');
+                    lightning.style.animation = '';
+                }, 1000);
+            }
+        }
+
+        lastScrollTop = scrollTop;
     });
 });
 

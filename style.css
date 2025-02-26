@@ -918,13 +918,10 @@ body {
     background: var(--background);
     border-radius: 1rem;
     padding: 1.5rem;
-    cursor: pointer;
-    transition: var(--transition-base);
+    margin-bottom: 1rem;
     box-shadow: var(--card-shadow);
-}
-
-.faq-item:hover {
-    transform: translateX(10px);
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .faq-question {
@@ -932,27 +929,59 @@ body {
     justify-content: space-between;
     align-items: center;
     font-weight: 600;
-    color: var(--secondary-color);
+    font-size: 1.1rem;
+    color: var(--text-color);
 }
 
 .faq-question i {
-    color: var(--primary-color);
-    transition: var(--transition-base);
+    transition: transform 0.3s ease;
 }
 
 .faq-answer {
-    margin-top: 1rem;
-    display: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, padding 0.3s ease;
+    opacity: 0;
+    padding: 0;
+    margin-top: 0;
     color: var(--light-text);
     line-height: 1.6;
 }
 
-.faq-item.active .faq-answer {
-    display: block;
+.faq-item.active {
+    background: var(--light-background);
 }
 
 .faq-item.active .faq-question i {
     transform: rotate(180deg);
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+    opacity: 1;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.faq-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.faq-item.active .faq-answer {
+    animation: slideDown 0.5s ease forwards;
 }
 
 /* Enhanced Animations */
@@ -2095,6 +2124,7 @@ body {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
 }
+}
 
 .text-center {
     text-align: center !important;
@@ -2405,4 +2435,98 @@ body {
 
 html {
     scroll-behavior: smooth;
+}
+
+/* Floating Lightning Animation */
+.floating-lightning {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: all;
+    filter: drop-shadow(0 0 15px rgba(255, 107, 0, 0.6));
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.floating-lightning img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    pointer-events: none;
+}
+
+.floating-lightning.active {
+    opacity: 1;
+}
+
+.floating-lightning.flash {
+    animation: lightningFlash 0.3s ease-out;
+}
+
+.floating-lightning:hover {
+    filter: drop-shadow(0 0 20px rgba(255, 107, 0, 0.8));
+    transform: translateY(-50%) scale(1.1);
+}
+
+.floating-lightning:active {
+    transform: translateY(-50%) scale(0.95);
+    cursor: grabbing;
+}
+
+@keyframes lightningFlash {
+    0% {
+        filter: brightness(1) contrast(1);
+        transform: scale(1);
+    }
+    25% {
+        filter: brightness(2.5) contrast(1.8);
+        transform: scale(1.1);
+    }
+    50% {
+        filter: brightness(1.8) contrast(1.5);
+        transform: scale(1.05);
+    }
+    75% {
+        filter: brightness(2.2) contrast(1.6);
+        transform: scale(1.08);
+    }
+    100% {
+        filter: brightness(1) contrast(1);
+        transform: scale(1);
+    }
+}
+
+/* Efeito de brilho ao redor do raio */
+.floating-lightning::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    background: radial-gradient(circle, rgba(255,107,0,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.floating-lightning.active::after {
+    opacity: 1;
+    animation: glowPulse 3s infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.4); opacity: 0.9; }
 } 
