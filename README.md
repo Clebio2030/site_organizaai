@@ -1,103 +1,121 @@
-# Organiza Aí - Landing Page
+# 🚀 Organiza Aí - Landing Page
 
-Landing page moderna para venda de planilhas organizacionais, desenvolvida com HTML, CSS e JavaScript.
+Landing page moderna e responsiva para venda de planilhas organizacionais financeiras.
 
-## 🚀 Características
+## ✨ Características
 
-- Design moderno e responsivo
-- Otimizada para conversão
-- Animações suaves
-- Slider de depoimentos
-- Formulário de contato
+- Design moderno e minimalista
+- Totalmente responsivo (mobile-first)
+- Otimizado para SEO
+- Animações suaves e interativas
+- Slider de antes/depois
+- Sistema de grid flexível
+- Menu mobile otimizado
 - Integração com sistema de pagamentos
-- Totalmente personalizável
+- Garantia de 30 dias
+- Suporte ao cliente
 
-## 📋 Pré-requisitos
+## 🛠️ Tecnologias
 
-- Servidor web (Apache, Nginx, etc.)
-- Editor de código (VS Code, Sublime Text, etc.)
-- Conhecimento básico de HTML, CSS e JavaScript
-
-## 🔧 Instalação
-
-1. Clone este repositório:
-```bash
-git clone https://seu-repositorio/organiza-ai.git
-```
-
-2. Navegue até a pasta do projeto:
-```bash
-cd organiza-ai
-```
-
-3. Abra o arquivo `index.html` em seu navegador ou configure em seu servidor web.
+- HTML5 semântico
+- CSS3 com variáveis e flexbox
+- JavaScript moderno (ES6+)
+- Font Awesome para ícones
+- Google Fonts (Montserrat e Poppins)
+- Otimização de imagens
 
 ## 📦 Estrutura do Projeto
 
 ```
 organiza-ai/
 │
-├── index.html          # Arquivo principal
+├── index.html          # Página principal
 ├── style.css          # Estilos CSS
 ├── script.js          # JavaScript
 │
-├── assets/            # Pasta de recursos
-│   ├── images/        # Imagens
-│   └── icons/         # Ícones
+├── assets/            # Recursos
+│   ├── images/        # Imagens otimizadas
+│   │   └── logo.png   # Logo principal
+│   └── icons/         # Ícones do sistema
 │
-└── README.md          # Este arquivo
+├── LICENSE.md         # Licença MIT
+└── README.md          # Documentação
 ```
 
-## ⚙️ Personalização
+## 🎨 Personalização
 
-### Cores
-As cores principais podem ser alteradas no arquivo `style.css`:
-
+### Cores e Temas
 ```css
 :root {
-    --primary-color: #2563eb;
-    --secondary-color: #1e40af;
-    /* ... outras cores ... */
+    --primary-color: #FF6B00;    /* Laranja principal */
+    --secondary-color: #000000;  /* Preto */
+    --accent-color: #FF8533;     /* Laranja claro */
+    /* ... outras variáveis ... */
 }
 ```
 
-### Conteúdo
-Edite o arquivo `index.html` para alterar:
-- Textos
-- Imagens
-- Links
-- Produtos
-- Depoimentos
-
-### Funcionalidades
-Modifique o arquivo `script.js` para personalizar:
-- Animações
-- Comportamento do slider
-- Validação de formulários
-- Integração com pagamentos
+### Fontes
+- **Títulos**: Montserrat (400, 500, 600, 700)
+- **Corpo**: Poppins (400, 500, 600)
 
 ## 📱 Responsividade
 
-A landing page é totalmente responsiva e se adapta a diferentes tamanhos de tela:
-- Desktop
-- Tablet
-- Mobile
+- Desktop (1200px+)
+- Tablet (768px - 1199px)
+- Mobile (< 768px)
+
+### Breakpoints
+```css
+/* Tablet */
+@media (max-width: 1199px) { ... }
+
+/* Mobile */
+@media (max-width: 768px) { ... }
+```
+
+## 🚀 Performance
+
+- Imagens otimizadas
+- CSS minificado
+- JavaScript modular
+- Lazy loading de imagens
+- Cache eficiente
+- Compressão GZIP
 
 ## 🔒 Segurança
 
+- Headers de segurança
+- Proteção contra XSS
 - Validação de formulários
-- Proteção contra injeção de código
-- Dados sensíveis protegidos
+- HTTPS forçado
+- CSP implementado
 
-## 📫 Contato
+## 📈 SEO
 
-Para suporte ou dúvidas:
-- Email: contato@organizaai.com.br
-- Website: www.organizaai.com.br
+- Meta tags otimizadas
+- Schema.org markup
+- Sitemap XML
+- Robots.txt
+- URLs amigáveis
+- Open Graph tags
+
+## 🌐 Browsers Suportados
+
+- Chrome (últimas 2 versões)
+- Firefox (últimas 2 versões)
+- Safari (últimas 2 versões)
+- Edge (últimas 2 versões)
+
+## 📞 Suporte
+
+Para suporte técnico ou dúvidas:
+- 📧 Email: contato@organizaai.com.br
+- 💬 WhatsApp: (11) 99999-9999
+- 🌐 Site: www.organizaai.com.br
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT - veja o arquivo [LICENSE.md](LICENSE.md) para detalhes.
+Este projeto está sob a licença MIT. Veja [LICENSE.md](LICENSE.md) para mais detalhes.
 
 ---
 Desenvolvido com ❤️ por Organiza Aí 
