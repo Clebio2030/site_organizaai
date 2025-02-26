@@ -3,22 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organiza Aí - Planilhas Organizacionais</title>
-    <meta name="description" content="Organize sua vida com nossas planilhas práticas e personalizáveis. Economize tempo e aumente sua produtividade.">
+    <title>Organiza Aí - Sistema Financeiro | Planilhas Financeiras Automatizadas</title>
+    <meta name="description" content="Sistema financeiro automatizado para controle de gastos, receitas e gestão financeira completa. Planilhas inteligentes com garantia de 7 dias. Comece agora!">
+    <meta name="keywords" content="sistema financeiro, planilha financeira, controle financeiro, gestão financeira, planilha automatizada">
+    <meta name="author" content="Organiza Aí">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Organiza Aí - Sistema Financeiro | Planilhas Financeiras Automatizadas">
+    <meta property="og:description" content="Sistema financeiro automatizado para controle de gastos, receitas e gestão financeira completa. Planilhas inteligentes com garantia de 7 dias.">
+    <meta property="og:image" content="assets/images/logo.png">
+    <meta property="og:url" content="https://www.organizaai.com.br">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Organiza Aí - Sistema Financeiro">
+    <meta name="twitter:description" content="Sistema financeiro automatizado para controle de gastos e receitas. Comece agora com 7 dias de garantia!">
+    <meta name="twitter:image" content="assets/images/logo.png">
+    <link rel="canonical" href="https://www.organizaai.com.br">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <link rel="apple-touch-icon" href="assets/images/logo.png">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Organiza Aí - Sistema Financeiro",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "45.90",
+            "priceCurrency": "BRL",
+            "priceValidUntil": "2025-12-31",
+            "availability": "https://schema.org/InStock"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "1250"
+        },
+        "description": "Sistema financeiro automatizado para controle de gastos, receitas e gestão financeira completa. Planilhas inteligentes com garantia de 7 dias.",
+        "featureList": [
+            "Controle total de gastos e receitas",
+            "Gráficos intuitivos e relatórios detalhados",
+            "Proteção com criptografia avançada",
+            "Análise de dados inteligente",
+            "Suporte especializado",
+            "Gestão simplificada"
+        ],
+        "screenshot": [
+            {
+                "@type": "ImageObject",
+                "url": "assets/images/1.jpg",
+                "caption": "Dashboard do Sistema Financeiro"
+            },
+            {
+                "@type": "ImageObject",
+                "url": "assets/images/2.jpg",
+                "caption": "Sistema de Contas a Receber"
+            },
+            {
+                "@type": "ImageObject",
+                "url": "assets/images/3.jpg",
+                "caption": "Sistema de Contas a Pagar"
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
-    <header class="header">
+    <header class="header" role="banner">
         <div class="container">
-            <a href="#home" class="logo">
-                <img src="assets/images/logo.png" alt="Organiza Aí Logo">
+            <a href="#home" class="logo" aria-label="Organiza Aí - Página Inicial">
+                <img src="assets/images/logo.png" alt="Organiza Aí Logo" width="45" height="45">
                 <span class="logo-text">Organiza Aí</span>
             </a>
-            <nav class="nav">
+            <nav class="nav" role="navigation" aria-label="Menu principal">
                 <ul class="nav-list">
                     <li><a href="#home" class="nav-link">Home</a></li>
                     <li><a href="#beneficios" class="nav-link">Benefícios</a></li>
@@ -33,27 +95,27 @@
         </div>
     </header>
 
-    <main>
-        <section id="hero" class="hero">
+    <main role="main">
+        <section id="hero" class="hero" aria-labelledby="hero-title">
             <div class="hero-background">
-                <div class="floating-dots"></div>
+                <div class="floating-dots" aria-hidden="true"></div>
             </div>
             <div class="container">
                 <div class="hero-grid">
                     <div class="hero-content animate-fade-up">
-                        <span class="hero-tag">🚀 Organize suas finanças</span>
-                        <h1>Transforme suas finanças com planilhas inteligentes</h1>
-                        <p class="hero-description">Mais de 10.000 pessoas já organizaram suas finanças com nossas planilhas. Comece agora e veja resultados em 30 dias ou seu dinheiro de volta!</p>
+                        <span class="hero-tag" role="text">🚀 Sistema Financeiro Automatizado</span>
+                        <h1 id="hero-title">Controle Financeiro Inteligente para Sua Empresa</h1>
+                        <p class="hero-description">Mais de 1.000 empresas já organizaram suas finanças com nosso sistema. Comece agora e veja resultados em 7 dias ou seu dinheiro de volta!</p>
                         <div class="hero-cta">
-                            <button class="cta-button primary large">
+                            <a href="#planos" class="cta-button primary large">
                                 <i class="fas fa-shopping-cart"></i> Comprar Agora
-                                <span class="button-subtitle">Por apenas R$29,90/mês</span>
-                            </button>
+                                <span class="button-subtitle">Por apenas R$45,90/Trimestral</span>
+                            </a>
                         </div>
                         <div class="hero-features">
                             <span class="feature-item">
                                 <i class="fas fa-check-circle"></i>
-                                30 dias de garantia
+                                7 dias de garantia
                             </span>
                             <span class="feature-item">
                                 <i class="fas fa-headset"></i>
@@ -66,16 +128,16 @@
                         </div>
                     </div>
                     <div class="hero-image animate-slide-right">
-                        <div class="carousel">
+                        <div class="carousel" role="region" aria-label="Galeria de imagens do sistema">
                             <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="assets/images/1.jpg" alt="Sistema Financeiro - Dashboard" class="dashboard-preview">
+                                <div class="carousel-item active" role="tabpanel" aria-label="Dashboard do Sistema Financeiro">
+                                    <img src="assets/images/1.jpg" alt="Dashboard do Sistema Financeiro Organiza Aí - Visão geral de receitas, despesas e saldo" class="dashboard-preview" loading="lazy" width="800" height="600">
                                 </div>
-                                <div class="carousel-item">
-                                    <img src="assets/images/2.jpg" alt="Sistema Financeiro - Contas a Receber" class="dashboard-preview">
+                                <div class="carousel-item" role="tabpanel" aria-label="Módulo de Contas a Receber">
+                                    <img src="assets/images/2.jpg" alt="Sistema de Contas a Receber - Controle completo de recebimentos e clientes" class="dashboard-preview" loading="lazy" width="800" height="600">
                                 </div>
-                                <div class="carousel-item">
-                                    <img src="assets/images/3.jpg" alt="Sistema Financeiro - Contas a Pagar" class="dashboard-preview">
+                                <div class="carousel-item" role="tabpanel" aria-label="Módulo de Contas a Pagar">
+                                    <img src="assets/images/3.jpg" alt="Sistema de Contas a Pagar - Gestão de pagamentos e fornecedores" class="dashboard-preview" loading="lazy" width="800" height="600">
                                 </div>
                             </div>
                             <button class="carousel-control prev">❮</button>
@@ -91,19 +153,14 @@
             </div>
         </section>
 
-        <section id="beneficios" class="benefits">
+        <section id="beneficios" class="benefits" aria-labelledby="benefits-title">
             <div class="container">
-                <h2>Por que nossas planilhas são diferentes?</h2>
+                <h2 id="benefits-title">Recursos Exclusivos do Sistema Financeiro</h2>
                 <div class="benefits-grid">
                     <div class="benefit-card animate-slide-left">
                         <i class="fas fa-chart-pie"></i>
                         <h3>Controle Total</h3>
                         <p>Visualize todos seus gastos e receitas em um só lugar, com gráficos intuitivos e relatórios detalhados</p>
-                    </div>
-                    <div class="benefit-card animate-fade-up">
-                        <i class="fas fa-mobile-alt"></i>
-                        <h3>Acesso em Qualquer Lugar</h3>
-                        <p>Use no computador, tablet ou celular. Sincronização automática em todos seus dispositivos</p>
                     </div>
                     <div class="benefit-card animate-slide-right">
                         <i class="fas fa-shield-alt"></i>
@@ -111,120 +168,125 @@
                         <p>Seus dados estão protegidos com a mais alta tecnologia de criptografia do mercado</p>
                     </div>
                     <div class="benefit-card animate-slide-left">
-                        <i class="fas fa-magic"></i>
-                        <h3>Automação Inteligente</h3>
-                        <p>Categorização automática de gastos e lembretes de contas a pagar</p>
+                        <i class="fas fa-laptop"></i>
+                        <h3>Acesso no seu PC</h3>
+                        <p>Use em seu computador ou notebook com total compatibilidade e praticidade</p>
                     </div>
                     <div class="benefit-card animate-fade-up">
-                        <i class="fas fa-graduation-cap"></i>
-                        <h3>Educação Financeira</h3>
-                        <p>Acesso a cursos e materiais exclusivos sobre gestão financeira</p>
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Análise de Dados Inteligente</h3>
+                        <p>Insights e análises detalhadas para tomada de decisões estratégicas</p>
                     </div>
                     <div class="benefit-card animate-slide-right">
-                        <i class="fas fa-users"></i>
-                        <h3>Comunidade Ativa</h3>
-                        <p>Participe de nossa comunidade e troque experiências com outros usuários</p>
+                        <i class="fas fa-headset"></i>
+                        <h3>Suporte Especializado</h3>
+                        <p>Atendimento dedicado para auxiliar em todas suas dúvidas e necessidades</p>
                     </div>
                     <div class="benefit-card animate-slide-left">
-                        <i class="fas fa-robot"></i>
-                        <h3>Inteligência Artificial</h3>
-                        <p>Previsões e sugestões personalizadas baseadas no seu perfil financeiro</p>
+                        <i class="fas fa-mouse-pointer"></i>
+                        <h3>Gestão em Poucos Cliques</h3>
+                        <p>Interface intuitiva para uma gestão financeira eficiente e simplificada</p>
                     </div>
                     <div class="benefit-card animate-fade-up">
-                        <i class="fas fa-sync"></i>
-                        <h3>Sincronização Bancária</h3>
-                        <p>Conecte suas contas bancárias para importação automática de transações</p>
+                        <i class="fas fa-university"></i>
+                        <h3>Movimentação Bancária</h3>
+                        <p>Controle todas suas transações bancárias de forma organizada e prática</p>
                     </div>
                     <div class="benefit-card animate-slide-right">
-                        <i class="fas fa-file-export"></i>
-                        <h3>Exportação Avançada</h3>
-                        <p>Exporte seus dados em múltiplos formatos para análises detalhadas</p>
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <h3>Baixa e Cancelamento</h3>
+                        <p>Gerencie suas contas a pagar e receber com facilidade, incluindo baixas e cancelamentos automáticos</p>
+                    </div>
+                    <div class="benefit-card animate-slide-left">
+                        <i class="fas fa-globe"></i>
+                        <h3>Mini-Site Financeiro</h3>
+                        <p>Acesse um painel exclusivo dentro da planilha com gráficos e indicadores personalizados do seu negócio</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="planos" class="pricing">
+        <section id="planos" class="pricing" aria-labelledby="pricing-title">
             <div class="container">
-                <h2>Escolha o plano ideal para você</h2>
-                <p class="section-subtitle">Comece hoje mesmo e transforme suas finanças</p>
+                <h2 id="pricing-title">Planos e Preços</h2>
+                <p class="section-subtitle" role="doc-subtitle">Escolha o melhor plano para sua empresa</p>
                 <div class="pricing-grid">
                     <div class="pricing-card animate-slide-left">
                         <div class="plan-header">
                             <h3>TRIMESTRAL</h3>
-                            <p class="plan-subtitle">Para faturamento até R$ 81 mil ao ano</p>
+                            <p class="plan-subtitle">Ideal para autônomos e profissionais liberais</p>
                         </div>
                         <div class="pricing-price">
-                            R$45,90<span>/mês</span>
+                            <span class="old-price">R$65,90</span>
+                            R$45,90
+                            <span class="price-period">Custo Beneficio</span>
                         </div>
                         <ul class="pricing-features">
                             <li><i class="fas fa-user"></i><span>1 usuário</span></li>
-                            <li><i class="fas fa-database"></i><span>20 MB de dados</span></li>
-                            <li><i class="fas fa-sync"></i><span>Integrações sem custo</span></li>
-                            <li><i class="fas fa-box"></i><span>Gestão de estoque</span></li>
+                            <li><i class="fas fa-infinity"></i><span>Dados ilimitados</span></li>
+                            <li><i class="fas fa-tools"></i><span>Implantação grátis</span></li>
+                            <li><i class="fas fa-file-excel"></i><span>Fornecimento da planilha</span></li>
+                            <li><i class="fas fa-magic"></i><span>Sistema automatizado</span></li>
                         </ul>
                         <div class="plan-footer">
-                            <button class="cta-button">comece grátis</button>
-                            <p class="plan-info">Apoio para negócios no início da jornada</p>
+                            <a href="https://pay.hotmart.com/CODIGO_TRIMESTRAL" target="_blank" class="purchase-btn">Garantir Desconto</a>
                         </div>
                     </div>
 
                     <div class="pricing-card popular animate-fade-up">
-                        <div class="discount-badge">30% OFF</div>
+                        <div class="discount-badge">+12% OFF</div>
                         <div class="plan-header">
                             <h3>SEMESTRAL</h3>
-                            <p class="plan-subtitle">Ideal para faturamento até R$ 360 mil ao ano</p>
-                            <div class="economy-badge">Economize + 12% OFF</div>
+                            <p class="plan-subtitle">Perfeito para pequenos negócios em crescimento</p>
                         </div>
                         <div class="pricing-price">
-                            <div class="old-price">R$ 91,80</div>
-                            R$79,90<span>/mês</span>
-                            <p class="price-period">Nos 3 primeiros meses</p>
+                            <span class="old-price">R$99,90</span>
+                            R$79,90
+                            <span class="price-period">economize +12%</span>
                         </div>
                         <ul class="pricing-features">
-                            <li><i class="fas fa-users"></i><span>5 usuários</span></li>
-                            <li><i class="fas fa-database"></i><span>100 MB de dados</span></li>
-                            <li><i class="fas fa-tools"></i><span>Implementação assistida grátis</span> <span class="new-badge">novo</span></li>
-                            <li><i class="fas fa-sync"></i><span>Integrações sem custo</span></li>
-                            <li><i class="fas fa-box"></i><span>Pick & packing</span></li>
+                            <li><i class="fas fa-user"></i><span>1 usuário</span></li>
+                            <li><i class="fas fa-infinity"></i><span>Dados ilimitados</span></li>
+                            <li><i class="fas fa-tools"></i><span>Implantação grátis</span></li>
+                            <li><i class="fas fa-file-excel"></i><span>Fornecimento da planilha</span></li>
+                            <li><i class="fas fa-magic"></i><span>Sistema automatizado</span></li>
                         </ul>
                         <div class="plan-footer">
-                            <button class="cta-button">comece grátis</button>
-                            <p class="plan-info">Perfeito para negócios em crescimento</p>
+                            <a href="https://pay.hotmart.com/CODIGO_SEMESTRAL" target="_blank" class="purchase-btn">Aproveitar Oferta</a>
                         </div>
                     </div>
 
                     <div class="pricing-card animate-slide-right">
-                        <div class="discount-badge">30% OFF</div>
+                        <div class="discount-badge">+18% OFF</div>
                         <div class="plan-header">
                             <h3>ANUAL</h3>
-                            <p class="plan-subtitle">Ideal para faturamento até R$ 3,6 milhões ao ano</p>
-                            <div class="economy-badge">Economize + 18% OFF</div>
+                            <p class="plan-subtitle">Para empresas estabelecidas e em expansão</p>
                         </div>
                         <div class="pricing-price">
-                            <div class="old-price">R$ 193,60</div>
-                            R$149,90<span>/mês</span>
-                            <p class="price-period">Nos 3 primeiros meses</p>
+                            <span class="old-price">R$199,90</span>
+                            R$149,90
+                            <span class="price-period">economize +18%</span>
                         </div>
                         <ul class="pricing-features">
-                            <li><i class="fas fa-users"></i><span>10 usuários</span></li>
-                            <li><i class="fas fa-database"></i><span>300 MB de dados</span></li>
-                            <li><i class="fas fa-tools"></i><span>Implementação assistida grátis</span> <span class="new-badge">novo</span></li>
-                            <li><i class="fas fa-sync"></i><span>Integrações sem custo</span></li>
-                            <li><i class="fas fa-box"></i><span>Importação automática de pedidos e atualização de estoque</span></li>
+                            <li><i class="fas fa-user"></i><span>1 usuário</span></li>
+                            <li><i class="fas fa-infinity"></i><span>Dados ilimitados</span></li>
+                            <li><i class="fas fa-tools"></i><span>Implantação grátis</span></li>
+                            <li><i class="fas fa-file-excel"></i><span>Fornecimento da planilha</span></li>
+                            <li><i class="fas fa-magic"></i><span>Sistema automatizado</span></li>
+                            <li><i class="fas fa-star"></i><span>Consultoria personalizada</span></li>
+                            <li><i class="fas fa-cogs"></i><span>Melhorias exclusivas</span></li>
                         </ul>
                         <div class="plan-footer">
-                            <button class="cta-button">comece grátis</button>
-                            <p class="plan-info">Para negócios que precisam ir além</p>
+                            <a href="https://pay.hotmart.com/CODIGO_ANUAL" target="_blank" class="purchase-btn">Assinar Agora</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="faq" class="faq">
+        <section id="faq" class="faq" aria-labelledby="faq-title">
             <div class="container">
-                <h2>Perguntas Frequentes</h2>
+                <h2 id="faq-title">Dúvidas Frequentes sobre o Sistema</h2>
                 <div class="faq-grid">
                     <div class="faq-item animate-fade-up">
                         <div class="faq-question">
@@ -273,13 +335,13 @@
             <div class="container">
                 <h2>Comece a organizar sua vida financeira hoje</h2>
                 <p>Junte-se a milhares de pessoas que já transformaram suas finanças com nossas planilhas</p>
-                <button class="cta-button">Começar Agora</button>
+                <a href="#planos" class="cta-button">Começar Agora</a>
             </div>
         </section>
 
-        <section id="depoimentos" class="testimonials">
+        <section id="depoimentos" class="testimonials" aria-labelledby="testimonials-title">
             <div class="container">
-                <h2>O que nossos clientes dizem</h2>
+                <h2 id="testimonials-title">O que nossos clientes dizem</h2>
                 <div class="testimonials-grid">
                     <div class="testimonial-card">
                         <div class="testimonial-content">
@@ -327,7 +389,7 @@
         </section>
     </main>
 
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
@@ -360,6 +422,15 @@
             </div>
         </div>
     </footer>
+
+    <div class="fullscreen-modal">
+        <button class="fullscreen-close">&times;</button>
+        <div class="fullscreen-nav">
+            <button class="fullscreen-prev">&lt;</button>
+            <button class="fullscreen-next">&gt;</button>
+        </div>
+        <img src="" alt="Imagem em tela cheia">
+    </div>
 
     <script src="script.js"></script>
 </body>

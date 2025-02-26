@@ -15,13 +15,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentSlide = 0;
 
+    // Carregamento otimizado de imagens do carrossel
+    function initCarouselOptimization() {
+        const carouselItems = document.querySelectorAll('.carousel-item img');
+        const imageUrls = Array.from(carouselItems).map(img => img.src);
+        
+        // Preload das próximas imagens
+        function preloadNextImages(currentIndex) {
+            const nextIndex = (currentIndex + 1) % carouselItems.length;
+            const nextNextIndex = (currentIndex + 2) % carouselItems.length;
+            
+            [nextIndex, nextNextIndex].forEach(index => {
+                const img = new Image();
+                img.src = imageUrls[index];
+            });
+        }
+
+        // Lazy loading inicial
+        carouselItems.forEach((img, index) => {
+            if (index === 0) {
+                img.src = imageUrls[0];
+                preloadNextImages(0);
+            } else {
+                img.loading = 'lazy';
+            }
+        });
+
+        return { preloadNextImages };
+    }
+
+    // Modificar a função showSlide para incluir preload
     function showSlide(index) {
         carouselItems.forEach(item => item.classList.remove('active'));
         indicators.forEach(indicator => indicator.classList.remove('active'));
         
         carouselItems[index].classList.add('active');
         indicators[index].classList.add('active');
+        
+        // Preload das próximas imagens
+        carouselOptimization.preloadNextImages(index);
     }
+
+    // Inicializar otimização do carrossel
+    const carouselOptimization = initCarouselOptimization();
 
     function nextSlide() {
         currentSlide = (currentSlide + 1) % carouselItems.length;
@@ -141,6 +177,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Slider de comparação antes/depois
     initImageCompare();
+
+    // Funcionalidade de tela cheia para o carrossel
+    const modal = document.querySelector('.fullscreen-modal');
+    const modalImg = modal.querySelector('img');
+    const closeBtn = modal.querySelector('.fullscreen-close');
+    const prevBtn = modal.querySelector('.fullscreen-prev');
+    const nextBtn = modal.querySelector('.fullscreen-next');
+
+    let currentFullscreenIndex = 0;
+
+    // Abrir modal em tela cheia
+    carousel.addEventListener('click', () => {
+        const activeItem = document.querySelector('.carousel-item.active');
+        const activeImg = activeItem.querySelector('img');
+        currentFullscreenIndex = Array.from(carouselItems).indexOf(activeItem);
+        
+        modalImg.src = activeImg.src;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    // Fechar modal
+    closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    // Navegação no modo tela cheia
+    prevBtn.addEventListener('click', () => {
+        currentFullscreenIndex = (currentFullscreenIndex - 1 + carouselItems.length) % carouselItems.length;
+        const prevImg = carouselItems[currentFullscreenIndex].querySelector('img');
+        modalImg.src = prevImg.src;
+    });
+
+    nextBtn.addEventListener('click', () => {
+        currentFullscreenIndex = (currentFullscreenIndex + 1) % carouselItems.length;
+        const nextImg = carouselItems[currentFullscreenIndex].querySelector('img');
+        modalImg.src = nextImg.src;
+    });
+
+    // Fechar com tecla ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Navegação com setas do teclado
+    document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('active')) return;
+        
+        if (e.key === 'ArrowLeft') {
+            prevBtn.click();
+        } else if (e.key === 'ArrowRight') {
+            nextBtn.click();
+        }
+    });
 });
 
 // Slider de comparação antes/depois
