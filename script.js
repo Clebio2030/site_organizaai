@@ -371,30 +371,37 @@ document.addEventListener('DOMContentLoaded', () => {
             flashOverlay.style.transition = 'opacity 0.15s ease-out';
             document.body.appendChild(flashOverlay);
 
+            // Salva a posição atual antes do flash
+            const currentTransform = lightning.style.transform;
+
             // Adiciona múltiplos flashes rápidos
             lightning.classList.add('flash');
             lightning.style.filter = 'brightness(1.5) contrast(1.2)';
 
-            // Sequência de flashes
+            // Sequência de flashes mantendo a posição
             setTimeout(() => {
                 flashOverlay.style.opacity = '0';
                 lightning.style.filter = 'brightness(2) contrast(1.5)';
+                lightning.style.transform = currentTransform; // Mantém a posição
             }, 50);
 
             setTimeout(() => {
                 flashOverlay.style.opacity = '0.9';
                 lightning.style.filter = 'brightness(1.8) contrast(1.3)';
+                lightning.style.transform = currentTransform; // Mantém a posição
             }, 100);
 
             setTimeout(() => {
                 flashOverlay.style.opacity = '0';
                 lightning.style.filter = '';
+                lightning.style.transform = currentTransform; // Mantém a posição
             }, 150);
 
             // Remove o flash após a animação
             setTimeout(() => {
                 flashOverlay.remove();
                 lightning.classList.remove('flash');
+                lightning.style.transform = currentTransform; // Mantém a posição final
             }, 300);
         }
     });
@@ -428,6 +435,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     };
 
+    // Função para atualizar a classe do lightning baseado na posição
+    function updateLightningClass(scrollTop) {
+        const trimestralCard = document.querySelector('.pricing-card:nth-child(1)');
+        const semestralCard = document.querySelector('.pricing-card:nth-child(2)');
+        const anualCard = document.querySelector('.pricing-card:nth-child(3)');
+        const lightning = document.querySelector('.floating-lightning');
+
+        if (!trimestralCard || !semestralCard || !anualCard || !lightning) return;
+
+        const trimestralRect = trimestralCard.getBoundingClientRect();
+        const semestralRect = semestralCard.getBoundingClientRect();
+        const anualRect = anualCard.getBoundingClientRect();
+        const viewportMiddle = window.innerHeight / 2;
+
+        // Remove todas as classes de plano
+        lightning.classList.remove('trimestral', 'semestral', 'anual');
+
+        // Adiciona a classe apropriada baseado na posição
+        if (trimestralRect.top <= viewportMiddle && trimestralRect.bottom >= viewportMiddle) {
+            lightning.classList.add('trimestral');
+        } else if (semestralRect.top <= viewportMiddle && semestralRect.bottom >= viewportMiddle) {
+            lightning.classList.add('semestral');
+        } else if (anualRect.top <= viewportMiddle && anualRect.bottom >= viewportMiddle) {
+            lightning.classList.add('anual');
+        }
+    }
+
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const planosSection = document.getElementById('planos');
@@ -451,16 +485,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log('Erro ao tocar som:', error);
                 });
 
+                // Atualiza a classe do lightning baseado na posição
+                updateLightningClass(scrollTop);
+
                 // Adiciona o efeito de flash após um pequeno delay
                 setTimeout(() => {
                     lightning.classList.add('flash');
                 }, 1000);
+            } else {
+                // Atualiza a classe mesmo quando já está na seção
+                updateLightningClass(scrollTop);
             }
         } else {
             // Se saiu da seção de planos, remove a animação e esconde o raio
             if (isInPlanosSection) {
                 isInPlanosSection = false;
-                lightning.classList.remove('flash');
+                lightning.classList.remove('flash', 'trimestral', 'semestral', 'anual');
                 
                 // Inicia a animação de subida
                 lightning.style.animation = 'lightningRiseUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards';
