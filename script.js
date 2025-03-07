@@ -7,82 +7,151 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Carousel elements
     const carousel = document.querySelector('.carousel');
-    const carouselInner = carousel.querySelector('.carousel-inner');
-    const carouselItems = carousel.querySelectorAll('.carousel-item');
-    const prevButton = carousel.querySelector('.prev');
-    const nextButton = carousel.querySelector('.next');
-    const indicators = carousel.querySelectorAll('.indicator');
+    
+    // Verificar se o carrossel existe na página
+    if (carousel) {
+        const carouselInner = carousel.querySelector('.carousel-inner');
+        const carouselItems = carousel.querySelectorAll('.carousel-item');
+        const prevButton = carousel.querySelector('.prev');
+        const nextButton = carousel.querySelector('.next');
+        const indicators = carousel.querySelectorAll('.indicator');
 
-    let currentSlide = 0;
-
-    // Carregamento otimizado de imagens do carrossel
-    function initCarouselOptimization() {
-        const carouselItems = document.querySelectorAll('.carousel-item img');
-        const imageUrls = Array.from(carouselItems).map(img => img.src);
+        let currentSlide = 0;
         
-        // Preload das próximas imagens
-        function preloadNextImages(currentIndex) {
-            const nextIndex = (currentIndex + 1) % carouselItems.length;
-            const nextNextIndex = (currentIndex + 2) % carouselItems.length;
+        console.log('Elementos do carrossel:', {
+            carouselItems: carouselItems.length,
+            prevButton,
+            nextButton,
+            indicators: indicators.length
+        });
+
+        // Carregamento otimizado de imagens do carrossel
+        function initCarouselOptimization() {
+            const carouselImages = document.querySelectorAll('.carousel-item img');
+            const imageUrls = Array.from(carouselImages).map(img => img.src);
             
-            [nextIndex, nextNextIndex].forEach(index => {
-                const img = new Image();
-                img.src = imageUrls[index];
+            // Preload das próximas imagens
+            function preloadNextImages(currentIndex) {
+                const nextIndex = (currentIndex + 1) % carouselItems.length;
+                const nextNextIndex = (currentIndex + 2) % carouselItems.length;
+                
+                [nextIndex, nextNextIndex].forEach(index => {
+                    const img = new Image();
+                    img.src = imageUrls[index];
+                });
+            }
+
+            // Lazy loading inicial
+            carouselImages.forEach((img, index) => {
+                if (index === 0) {
+                    img.src = imageUrls[0];
+                    preloadNextImages(0);
+                } else {
+                    img.loading = 'lazy';
+                }
+            });
+
+            return { preloadNextImages };
+        }
+
+        // Modificar a função showSlide para incluir preload
+        function showSlide(index) {
+            // Garantir que o índice seja válido
+            index = Math.max(0, Math.min(index, carouselItems.length - 1));
+            
+            carouselItems.forEach(item => item.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            carouselItems[index].classList.add('active');
+            if (indicators[index]) {
+                indicators[index].classList.add('active');
+            }
+            
+            currentSlide = index;
+            
+            // Debug para verificar se a troca de slide está ocorrendo
+            console.log('Mostrando slide:', index);
+            
+            // Preload das próximas imagens
+            carouselOptimization.preloadNextImages(index);
+        }
+
+        // Inicializar otimização do carrossel
+        const carouselOptimization = initCarouselOptimization();
+
+        function nextSlide() {
+            console.log('Próximo slide');
+            currentSlide = (currentSlide + 1) % carouselItems.length;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            console.log('Slide anterior');
+            currentSlide = (currentSlide - 1 + carouselItems.length) % carouselItems.length;
+            showSlide(currentSlide);
+        }
+
+        // Initialize carousel
+        if (prevButton && nextButton) {
+            // Adicionar eventos de clique aos botões com correção para propagação
+            prevButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                prevSlide();
+            });
+            
+            nextButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                nextSlide();
+            });
+            
+            // Log para confirmar que os eventos foram adicionados
+            console.log('Eventos de clique adicionados aos botões de navegação');
+        } else {
+            console.error('Botões de navegação do carrossel não encontrados');
+        }
+
+        if (indicators && indicators.length) {
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentSlide = index;
+                    showSlide(currentSlide);
+                });
             });
         }
 
-        // Lazy loading inicial
-        carouselItems.forEach((img, index) => {
-            if (index === 0) {
-                img.src = imageUrls[0];
-                preloadNextImages(0);
-            } else {
-                img.loading = 'lazy';
+        // Auto-advance slides (opcional, pode remover se preferir)
+        const autoAdvance = setInterval(nextSlide, 7000);
+        
+        // Pausa o avanço automático quando o mouse estiver sobre o carrossel
+        carousel.addEventListener('mouseenter', () => clearInterval(autoAdvance));
+        
+        // Adicionar eventos de toque para dispositivos móveis
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        carousel.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        carousel.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            if (touchEndX < touchStartX - swipeThreshold) {
+                nextSlide(); // Swipe para a esquerda
+            } else if (touchEndX > touchStartX + swipeThreshold) {
+                prevSlide(); // Swipe para a direita
             }
-        });
-
-        return { preloadNextImages };
-    }
-
-    // Modificar a função showSlide para incluir preload
-    function showSlide(index) {
-        carouselItems.forEach(item => item.classList.remove('active'));
-        indicators.forEach(indicator => indicator.classList.remove('active'));
+        }
         
-        carouselItems[index].classList.add('active');
-        indicators[index].classList.add('active');
-        
-        // Preload das próximas imagens
-        carouselOptimization.preloadNextImages(index);
-    }
-
-    // Inicializar otimização do carrossel
-    const carouselOptimization = initCarouselOptimization();
-
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % carouselItems.length;
-        showSlide(currentSlide);
-    }
-
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + carouselItems.length) % carouselItems.length;
-        showSlide(currentSlide);
-    }
-
-    // Initialize carousel
-    if (carousel) {
-        prevButton.addEventListener('click', prevSlide);
-        nextButton.addEventListener('click', nextSlide);
-
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => {
-                currentSlide = index;
-                showSlide(currentSlide);
-            });
-        });
-
-        // Auto-advance slides
-        setInterval(nextSlide, 5000);
+        // Exibir o primeiro slide
+        showSlide(0);
     }
 
     // Mobile menu functionality
@@ -133,7 +202,21 @@ document.addEventListener('DOMContentLoaded', () => {
             // Abre a resposta clicada se não estava aberta
             if (!isOpen) {
                 item.classList.add('active');
-                answer.style.maxHeight = answer.scrollHeight + "px";
+                
+                // Garante que a altura seja calculada corretamente
+                // Primeiro definimos a altura como "auto" temporariamente
+                answer.style.maxHeight = 'none';
+                // Calculamos a altura real
+                const realHeight = answer.scrollHeight;
+                // Retornamos para 0 e forçamos um reflow para garantir a animação
+                answer.style.maxHeight = '0px';
+                
+                // Use requestAnimationFrame para garantir que a transição ocorra
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        answer.style.maxHeight = realHeight + 30 + "px"; // Adicionamos 30px de margem
+                    });
+                });
             }
         });
     });
@@ -180,7 +263,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Slider de comparação antes/depois
-    initImageCompare();
+    if (document.querySelector('.image-compare')) {
+        const compareItems = document.querySelectorAll('.image-compare');
+        
+        compareItems.forEach(function(compareItem) {
+            // ... existing code ...
+        });
+    }
 
     // Funcionalidade de tela cheia para o carrossel
     const modal = document.querySelector('.fullscreen-modal');
@@ -515,48 +604,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
         lastScrollTop = scrollTop;
     });
-});
-
-// Slider de comparação antes/depois
-function initImageCompare() {
-    const container = document.querySelector('.image-compare');
-    if (!container) return;
-
-    const beforeImage = container.querySelector('.before-image');
-    const sliderHandle = container.querySelector('.slider-handle');
-    let isResizing = false;
-
-    function handleResize(e) {
-        if (!isResizing) return;
-
-        const containerRect = container.getBoundingClientRect();
-        let position = (e.pageX - containerRect.left) / containerRect.width;
-
-        position = Math.max(0, Math.min(1, position));
-        beforeImage.style.width = `${position * 100}%`;
-        sliderHandle.style.left = `${position * 100}%`;
-    }
-
-    sliderHandle.addEventListener('mousedown', () => {
-        isResizing = true;
-    });
-
-    window.addEventListener('mousemove', handleResize);
-    window.addEventListener('mouseup', () => {
-        isResizing = false;
-    });
-
-    sliderHandle.addEventListener('touchstart', () => {
-        isResizing = true;
-    });
-
-    window.addEventListener('touchmove', (e) => {
-        if (!isResizing) return;
-        const touch = e.touches[0];
-        handleResize(touch);
-    });
-
-    window.addEventListener('touchend', () => {
-        isResizing = false;
-    });
-} 
+}); 

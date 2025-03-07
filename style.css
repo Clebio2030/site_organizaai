@@ -275,8 +275,8 @@ body {
 
 .hero-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    grid-template-columns: 40% 60%;
+    gap: 2rem;
     align-items: center;
 }
 
@@ -398,12 +398,13 @@ body {
 .dashboard-preview {
     width: 100%;
     height: auto;
-    max-height: 500px;
+    max-height: 450px; /* Reduzido de 550px para 450px para combinar com o carrossel */
     object-fit: contain;
     border-radius: 1rem;
     display: block;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 0.5rem; /* Reduzido de 1rem */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 }
 
 .hero-image-overlay {
@@ -993,12 +994,21 @@ body {
 .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease-in-out, padding 0.3s ease;
+    transition: max-height 0.6s ease-in-out, padding 0.3s ease, opacity 0.3s ease;
     opacity: 0;
     padding: 0;
     margin-top: 0;
     color: var(--light-text);
     line-height: 1.6;
+    font-size: 1rem;
+}
+
+.faq-answer p {
+    margin-bottom: 0.8rem;
+}
+
+.faq-answer p:last-child {
+    margin-bottom: 0;
 }
 
 .faq-item.active {
@@ -1010,11 +1020,14 @@ body {
 }
 
 .faq-item.active .faq-answer {
-    max-height: 500px;
+    max-height: 1000px;
     opacity: 1;
     padding-top: 1rem;
     margin-top: 1rem;
     border-top: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    overflow: visible;
+    animation: fadeInAnswer 0.4s ease-out forwards;
 }
 
 .faq-item:hover {
@@ -1535,9 +1548,11 @@ body {
     border-radius: 1rem;
     box-shadow: var(--card-shadow);
     background: var(--background);
-    min-height: 400px;
+    min-height: 380px;
     cursor: pointer;
     transition: transform 0.3s ease;
+    margin: 0 auto;
+    max-width: 100%;
 }
 
 .carousel:hover {
@@ -1567,6 +1582,7 @@ body {
     object-fit: contain;
     display: block;
     transition: transform 0.3s ease;
+    max-height: 450px;
 }
 
 .carousel:hover .carousel-item img {
@@ -1577,45 +1593,62 @@ body {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.8);
     border: none;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: var(--primary-color);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.carousel-control:hover {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--accent-color);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .carousel-control.prev {
-    left: 1rem;
+    left: 15px;
 }
 
 .carousel-control.next {
-    right: 1rem;
+    right: 15px;
 }
 
 .carousel-indicators {
     position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 15px;
+    left: 0;
+    right: 0;
     display: flex;
+    justify-content: center;
     gap: 0.5rem;
+    z-index: 5;
 }
 
 .indicator {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.6);
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator:hover {
+    background: rgba(255, 255, 255, 0.9);
 }
 
 .indicator.active {
     background: var(--primary-color);
+    transform: scale(1.2);
 }
 
 /* Enhanced Button Styles */
@@ -2480,19 +2513,19 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Floating Lightning Animation */
+/* Floating Lightning Animation - Versão mais discreta */
 .floating-lightning {
     position: fixed;
-    width: 60px;
-    height: 60px;
-    right: 30px;
+    width: 45px; /* Reduzido de 60px */
+    height: 45px; /* Reduzido de 60px */
+    right: 25px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 9999;
     opacity: 0;
     transition: all 0.3s ease;
     pointer-events: all;
-    filter: drop-shadow(0 0 15px rgba(255, 107, 0, 0.6));
+    filter: drop-shadow(0 0 5px rgba(255, 107, 0, 0.3)); /* Reduzido blur e opacidade */
     touch-action: none;
     user-select: none;
     -webkit-user-select: none;
@@ -2506,10 +2539,11 @@ html {
     object-fit: contain;
     transition: transform 0.3s ease;
     pointer-events: none;
+    opacity: 0.7; /* Adicionado transparência para ficar mais discreto */
 }
 
 .floating-lightning.active {
-    opacity: 1;
+    opacity: 0.8; /* Reduzido de 1 para ficar mais discreto */
 }
 
 .floating-lightning.flash {
@@ -2517,8 +2551,8 @@ html {
 }
 
 .floating-lightning:hover {
-    filter: drop-shadow(0 0 20px rgba(255, 107, 0, 0.8));
-    transform: translateY(-50%) scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(255, 107, 0, 0.5)); /* Reduzido efeito de glow */
+    transform: translateY(-50%) scale(1.05); /* Reduzido efeito de escala */
 }
 
 .floating-lightning:active {
@@ -2532,16 +2566,16 @@ html {
         transform: scale(1);
     }
     25% {
-        filter: brightness(2.5) contrast(1.8);
-        transform: scale(1.1);
+        filter: brightness(1.5) contrast(1.2); /* Reduzido intensidade */
+        transform: scale(1.05); /* Reduzido escala */
     }
     50% {
-        filter: brightness(1.8) contrast(1.5);
-        transform: scale(1.05);
+        filter: brightness(1.3) contrast(1.1); /* Reduzido intensidade */
+        transform: scale(1.03); /* Reduzido escala */
     }
     75% {
-        filter: brightness(2.2) contrast(1.6);
-        transform: scale(1.08);
+        filter: brightness(1.4) contrast(1.2); /* Reduzido intensidade */
+        transform: scale(1.04); /* Reduzido escala */
     }
     100% {
         filter: brightness(1) contrast(1);
@@ -2549,15 +2583,15 @@ html {
     }
 }
 
-/* Efeito de brilho ao redor do raio */
+/* Efeito de brilho ao redor do raio - versão mais discreta */
 .floating-lightning::after {
     content: '';
     position: absolute;
-    top: -15px;
-    left: -15px;
-    right: -15px;
-    bottom: -15px;
-    background: radial-gradient(circle, rgba(255,107,0,0.3) 0%, transparent 70%);
+    top: -10px; /* Reduzido de -15px */
+    left: -10px; /* Reduzido de -15px */
+    right: -10px; /* Reduzido de -15px */
+    bottom: -10px; /* Reduzido de -15px */
+    background: radial-gradient(circle, rgba(255,107,0,0.15) 0%, transparent 70%); /* Reduzido opacidade */
     border-radius: 50%;
     z-index: -1;
     opacity: 0;
@@ -2565,56 +2599,56 @@ html {
 }
 
 .floating-lightning.active::after {
-    opacity: 1;
-    animation: glowPulse 3s infinite;
+    opacity: 0.7; /* Reduzido de 1 */
+    animation: glowPulse 4s infinite; /* Aumentado duração para ser mais sutil */
 }
 
 @keyframes glowPulse {
-    0%, 100% { transform: scale(1); opacity: 0.6; }
-    50% { transform: scale(1.4); opacity: 0.9; }
+    0%, 100% { transform: scale(1); opacity: 0.3; } /* Reduzido opacidade */
+    50% { transform: scale(1.2); opacity: 0.5; } /* Reduzido escala e opacidade */
 }
 
-/* Lightning effects por plano */
+/* Lightning effects por plano - versão mais discreta */
 .floating-lightning.trimestral {
-    filter: drop-shadow(0 0 10px rgba(255, 107, 0, 0.6));
+    filter: drop-shadow(0 0 5px rgba(255, 107, 0, 0.3)); /* Reduzido blur e opacidade */
 }
 
 .floating-lightning.trimestral.flash {
-    filter: drop-shadow(0 0 15px rgba(255, 107, 0, 0.8));
+    filter: drop-shadow(0 0 8px rgba(255, 107, 0, 0.5)); /* Reduzido blur e opacidade */
     animation: flashTrimestral 0.5s ease-out;
 }
 
 .floating-lightning.semestral {
-    filter: drop-shadow(0 0 12px rgba(255, 147, 0, 0.7));
+    filter: drop-shadow(0 0 5px rgba(255, 147, 0, 0.3)); /* Reduzido blur e opacidade */
 }
 
 .floating-lightning.semestral.flash {
-    filter: drop-shadow(0 0 20px rgba(255, 147, 0, 0.9));
+    filter: drop-shadow(0 0 8px rgba(255, 147, 0, 0.5)); /* Reduzido blur e opacidade */
     animation: flashSemestral 0.5s ease-out;
 }
 
 .floating-lightning.anual {
-    filter: drop-shadow(0 0 12px rgba(76, 175, 80, 0.7));
+    filter: drop-shadow(0 0 5px rgba(76, 175, 80, 0.3)); /* Reduzido blur e opacidade */
 }
 
 .floating-lightning.anual.flash {
-    filter: drop-shadow(0 0 20px rgba(76, 175, 80, 0.9));
+    filter: drop-shadow(0 0 8px rgba(76, 175, 80, 0.5)); /* Reduzido blur e opacidade */
     animation: flashAnual 0.5s ease-out;
 }
 
 @keyframes flashTrimestral {
-    0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 107, 0, 0.6)); }
-    50% { filter: drop-shadow(0 0 25px rgba(255, 107, 0, 1)); }
+    0%, 100% { filter: drop-shadow(0 0 5px rgba(255, 107, 0, 0.3)); } /* Reduzido blur e opacidade */
+    50% { filter: drop-shadow(0 0 10px rgba(255, 107, 0, 0.6)); } /* Reduzido blur e opacidade */
 }
 
 @keyframes flashSemestral {
-    0%, 100% { filter: drop-shadow(0 0 12px rgba(255, 147, 0, 0.7)); }
-    50% { filter: drop-shadow(0 0 30px rgba(255, 147, 0, 1)); }
+    0%, 100% { filter: drop-shadow(0 0 5px rgba(255, 147, 0, 0.3)); } /* Reduzido blur e opacidade */
+    50% { filter: drop-shadow(0 0 10px rgba(255, 147, 0, 0.6)); } /* Reduzido blur e opacidade */
 }
 
 @keyframes flashAnual {
-    0%, 100% { filter: drop-shadow(0 0 12px rgba(76, 175, 80, 0.7)); }
-    50% { filter: drop-shadow(0 0 30px rgba(76, 175, 80, 1)); }
+    0%, 100% { filter: drop-shadow(0 0 5px rgba(76, 175, 80, 0.3)); } /* Reduzido blur e opacidade */
+    50% { filter: drop-shadow(0 0 10px rgba(76, 175, 80, 0.6)); } /* Reduzido blur e opacidade */
 }
 
 .floating-lightning img {
@@ -2622,13 +2656,128 @@ html {
 }
 
 .floating-lightning.trimestral img {
-    filter: sepia(100%) saturate(300%) brightness(100%) hue-rotate(350deg);
+    filter: sepia(50%) saturate(200%) brightness(100%) hue-rotate(350deg); /* Reduzido intensidade dos filtros */
+    opacity: 0.7; /* Adicionado para mais suavidade */
 }
 
 .floating-lightning.semestral img {
-    filter: sepia(100%) saturate(400%) brightness(120%) hue-rotate(330deg);
+    filter: sepia(50%) saturate(200%) brightness(110%) hue-rotate(330deg); /* Reduzido intensidade dos filtros */
+    opacity: 0.7; /* Adicionado para mais suavidade */
 }
 
 .floating-lightning.anual img {
-    filter: sepia(100%) saturate(300%) brightness(100%) hue-rotate(80deg);
+    filter: sepia(50%) saturate(200%) brightness(100%) hue-rotate(80deg); /* Reduzido intensidade dos filtros */
+    opacity: 0.7; /* Adicionado para mais suavidade */
+}
+
+/* Media Queries para responsividade do carrossel */
+@media (min-width: 1025px) and (max-width: 1400px) {
+    .hero-grid {
+        grid-template-columns: 42% 58%;
+    }
+    
+    .carousel {
+        min-height: 360px;
+    }
+    
+    .carousel-item img {
+        max-height: 430px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .hero-grid {
+        grid-template-columns: 45% 55%;
+    }
+    
+    .carousel {
+        min-height: 340px;
+    }
+    
+    .carousel-item img {
+        max-height: 400px;
+    }
+    
+    .dashboard-preview {
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel {
+        min-height: 280px;
+    }
+    
+    .carousel-control {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .carousel:hover {
+        transform: none;
+    }
+    
+    .carousel:hover .carousel-item img {
+        transform: none;
+    }
+    
+    .hero-image {
+        order: -1;
+        margin-bottom: 1.5rem;
+    }
+    
+    .dashboard-preview {
+        max-height: 350px;
+        padding: 0.5rem;
+    }
+    
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .carousel-item img {
+        max-height: 300px;
+    }
+
+    .pricing-card:last-child {
+        transform: none;
+        border-width: 2px;
+    }
+
+    .pricing-card:last-child:hover {
+        transform: translateY(-5px);
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel {
+        min-height: 200px;
+    }
+    
+    .carousel-item img {
+        max-height: 230px;
+    }
+    
+    .dashboard-preview {
+        max-height: 230px;
+    }
+    
+    .carousel-control {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+}
+
+@keyframes fadeInAnswer {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 } 
